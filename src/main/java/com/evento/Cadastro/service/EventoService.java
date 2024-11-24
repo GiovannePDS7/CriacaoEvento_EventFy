@@ -51,6 +51,9 @@ public class EventoService {
             evento.setHorarioFim(eventoDTO.getHorarioFim());
             evento.setLocalEvento(eventoDTO.getLocalEvento());
             evento.setTipoEvento(eventoDTO.getTipoEvento());
+            evento.setIncluirTarefas(eventoDTO.isIncluirTarefas());
+            evento.setListaConvidados(eventoDTO.isListaConvidados());
+            evento.setFornecedores(eventoDTO.isFornecedores());
             // Atualize o organizador apenas se necessário
             return toDTO(eventoRepository.save(evento));
         });
@@ -76,6 +79,9 @@ public class EventoService {
         dto.setLocalEvento(evento.getLocalEvento());
         dto.setTipoEvento(evento.getTipoEvento());
         dto.setIdOrganizador(evento.getOrganizador() != null ? evento.getOrganizador().getIdOrganizador() : null);
+        dto.setIncluirTarefas(evento.isIncluirTarefas());
+        dto.setListaConvidados(evento.isListaConvidados());
+        dto.setFornecedores(evento.isFornecedores());
         return dto;
     }
 
@@ -88,6 +94,9 @@ public class EventoService {
         evento.setHorarioFim(dto.getHorarioFim());
         evento.setLocalEvento(dto.getLocalEvento());
         evento.setTipoEvento(dto.getTipoEvento());
+        evento.setIncluirTarefas(dto.isIncluirTarefas());
+        evento.setListaConvidados(dto.isListaConvidados());
+        evento.setFornecedores(dto.isFornecedores());
         // Adicione lógica para buscar o organizador se necessário
         return evento;
     }

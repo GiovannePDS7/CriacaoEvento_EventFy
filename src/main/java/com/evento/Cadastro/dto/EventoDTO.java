@@ -17,9 +17,9 @@ public class EventoDTO {
     private String localEvento;
     private String tipoEvento;
     private Long idOrganizador;
-    private Boolean incluirTarefas;
-    private Boolean listaConvidados;
-    private Boolean fornecedores;
+    private boolean incluirTarefas;
+    private boolean listaConvidados;
+    private boolean fornecedores;
 
 
 }
