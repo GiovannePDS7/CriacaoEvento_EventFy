@@ -1,12 +1,16 @@
 package com.evento.Cadastro.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.evento.Cadastro.entity.Organizador;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class EventoDTO {
 
     private Long idEvento;

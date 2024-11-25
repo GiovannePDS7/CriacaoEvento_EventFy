@@ -2,15 +2,19 @@ package com.evento.Cadastro.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
+
+@Getter
+@Setter
 @Data
-@NoArgsConstructor
-@Entity
 @Table(name = "Evento")
+@Entity
 public class Evento {
 
     @Id
@@ -38,7 +42,7 @@ public class Evento {
 
     @ManyToOne
     @JoinColumn(name = "Id_Organizador", referencedColumnName = "Id_Organizador")
-    private Organizador organizador;
+    private Organizador organizador; // A referência ao Organizador é mapeada aqui
 
     @Lob
     @Column(name = "Foto_Evento")

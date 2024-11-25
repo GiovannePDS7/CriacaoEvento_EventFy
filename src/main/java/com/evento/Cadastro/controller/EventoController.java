@@ -1,6 +1,7 @@
 package com.evento.Cadastro.controller;
 
 import com.evento.Cadastro.dto.EventoDTO;
+import com.evento.Cadastro.entity.Organizador;
 import com.evento.Cadastro.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,11 +37,14 @@ public class EventoController {
     }
 
     // Criar um novo evento
-    @PostMapping
-    public ResponseEntity<EventoDTO> criarEvento(@RequestBody EventoDTO eventoDTO) {
-        EventoDTO novoEvento = eventoService.criarEvento(eventoDTO);
+    @PostMapping("/criarEvento")
+    public ResponseEntity<EventoDTO> criarEvento(
+            @RequestParam("idOrganizador") Long idOrganizador,
+            @RequestBody EventoDTO eventoDTO) {
+        EventoDTO novoEvento = eventoService.criarEvento(idOrganizador, eventoDTO);
         return ResponseEntity.ok(novoEvento);
     }
+
 
     // Atualizar um evento existente
     @PutMapping("/{id}")

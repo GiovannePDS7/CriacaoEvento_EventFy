@@ -2,7 +2,9 @@ package com.evento.Cadastro.service;
 
 import com.evento.Cadastro.dto.EventoDTO;
 import com.evento.Cadastro.entity.Evento;
+import com.evento.Cadastro.entity.Organizador;
 import com.evento.Cadastro.repository.EventoRepository;
+import com.evento.Cadastro.repository.OrganizadorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 public class EventoService {
 
     private EventoRepository eventoRepository;  // Repositório de Evento
+    private OrganizadorRepository organizadorRepository;
 
     @Autowired
     public EventoService(EventoRepository eventoRepository) {
@@ -35,10 +38,30 @@ public class EventoService {
     }
 
     // Criar novo evento
+
+
+    // Construtor para injetar os repositórios
+    public EventoService(EventoRepository eventoRepository, OrganizadorRepository organizadorRepository) {
+        this.eventoRepository = eventoRepository;
+        this.organizadorRepository = organizadorRepository;
+    }
+
     @Transactional
-    public EventoDTO criarEvento(EventoDTO eventoDTO) {
+    public EventoDTO criarEvento(Long idOrganizador, EventoDTO eventoDTO) {
+        // Busca o organizador pelo ID
+        Organizador organizador = organizadorRepository.findById(idOrganizador)
+                .orElseThrow(() -> new IllegalArgumentException("Organizador não encontrado para o ID: " + idOrganizador));
+
+        // Converte o DTO para a entidade
         Evento evento = toEntity(eventoDTO);
+
+        // Associa o Organizador ao Evento
+        evento.setOrganizador(organizador);
+
+        // Salva o evento no banco de dados
         Evento eventoSalvo = eventoRepository.save(evento);
+
+        // Retorna o evento salvo como DTO
         return toDTO(eventoSalvo);
     }
 
@@ -78,12 +101,17 @@ public class EventoService {
         dto.setHorarioFim(evento.getHorarioFim());
         dto.setLocalEvento(evento.getLocalEvento());
         dto.setTipoEvento(evento.getTipoEvento());
+
+        // Verifica se o Organizador está presente e extrai o ID
         dto.setIdOrganizador(evento.getOrganizador() != null ? evento.getOrganizador().getIdOrganizador() : null);
+
         dto.setIncluirTarefas(evento.isIncluirTarefas());
         dto.setListaConvidados(evento.isListaConvidados());
         dto.setFornecedores(evento.isFornecedores());
         return dto;
     }
+
+
 
     // Converter de DTO para Entidade
     private Evento toEntity(EventoDTO dto) {
