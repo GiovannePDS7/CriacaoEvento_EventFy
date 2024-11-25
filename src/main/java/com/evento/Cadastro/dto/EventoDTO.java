@@ -13,7 +13,6 @@ import java.time.LocalTime;
 @Setter
 public class EventoDTO {
 
-    private Long idEvento;
     private String nomeEvento;
     private LocalDate dataEvento;
     private LocalTime horarioInicio;
@@ -24,6 +23,4 @@ public class EventoDTO {
     private boolean incluirTarefas;
     private boolean listaConvidados;
     private boolean fornecedores;
-
-
 }
