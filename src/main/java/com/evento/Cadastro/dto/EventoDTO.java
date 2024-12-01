@@ -19,7 +19,7 @@ public class EventoDTO {
     private LocalDate dataEvento;
     @JsonFormat(pattern = "HH:mm")
     private LocalTime horarioInicio;
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime horarioFim;
     private String localEvento;
     private String tipoEvento;
